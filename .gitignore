@@ -1,8 +1,7 @@
 node_modules/
-*.mp4
-*.mp3
-*.wav
-*.aac
 /tmp/
 .env
 .DS_Store
+
+# Ignore generated output, not asset presets
+/output/
