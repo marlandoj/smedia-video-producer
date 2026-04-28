@@ -54,7 +54,7 @@ Run `bun video-producer.ts --help` or `bun video-producer.ts <command> --help` f
 
 ## Dependencies
 
-- **fal-ai-media skill** — image generation + image-to-video (`FAL_KEY` required in Zo Secrets)
+- **fal-ai-media** — image generation + image-to-video. Bundled at `scripts/vendor/fal-ai-media/`; run `bun install` there once. Falls back to `/home/workspace/Skills/fal-ai-media/` if vendored deps are absent. (`FAL_KEY` required in Zo Secrets.)
 - **elevenlabs-skill** — voiceover generation (`ELEVENLABS_API_KEY` in Zo Secrets, paid plan required)
 - **ffmpeg** — video composition, pre-installed on Zo
 - **OpenAI TTS** — free voiceover fallback (`OPENAI_API_KEY` in Zo Secrets)

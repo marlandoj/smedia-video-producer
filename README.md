@@ -18,6 +18,9 @@ Built as an [Agent Skill](https://agentskills.io) for [Zo Computer](https://zoco
 ## Quick Start
 
 ```bash
+# Install bundled fal-ai-media dependency (one-time)
+cd scripts/vendor/fal-ai-media && bun install && cd -
+
 # Full pipeline — brief to finished video
 bun scripts/video-producer.ts produce \
   --brief "15-second TikTok ad for tallow balm, punchy hook, natural ingredients angle" \

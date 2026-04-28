@@ -5,7 +5,9 @@ import { existsSync, mkdirSync, readdirSync } from "fs";
 import { join, resolve, dirname } from "path";
 
 const SCRIPT_DIR = dirname(new URL(import.meta.url).pathname);
-const FAL_MEDIA = "/home/workspace/Skills/fal-ai-media/scripts/fal-media.ts";
+const VENDORED_FAL_MEDIA = join(SCRIPT_DIR, "vendor/fal-ai-media/fal-media.ts");
+const SYSTEM_FAL_MEDIA = "/home/workspace/Skills/fal-ai-media/scripts/fal-media.ts";
+const FAL_MEDIA = existsSync(VENDORED_FAL_MEDIA) ? VENDORED_FAL_MEDIA : SYSTEM_FAL_MEDIA;
 const ELEVENLABS = "/home/workspace/Skills/elevenlabs-skill/scripts/elevenlabs.ts";
 const CHARACTER_BUILDER = "/home/workspace/Skills/ai-character-builder/scripts";
 
