@@ -9,6 +9,20 @@ const FAL_MEDIA = "/home/workspace/Skills/fal-ai-media/scripts/fal-media.ts";
 const ELEVENLABS = "/home/workspace/Skills/elevenlabs-skill/scripts/elevenlabs.ts";
 const CHARACTER_BUILDER = "/home/workspace/Skills/ai-character-builder/scripts";
 
+function requireSkill(skill: string, path: string, envVar?: string) {
+  if (!existsSync(path)) {
+    console.error(`\n❌ Required skill not found: ${skill}`);
+    console.error(`   Expected at: ${path}`);
+    console.error(`   This skill is a hard dependency for the requested command.`);
+    console.error(`   Install the '${skill}' skill into /home/workspace/Skills/`);
+    console.error(`   or symlink it from another location, then retry.\n`);
+    if (envVar) {
+      console.error(`   Note: ${skill} also requires ${envVar} in Zo Secrets.\n`);
+    }
+    process.exit(1);
+  }
+}
+
 interface CharacterIdentity {
   id: string;
   name: string;
@@ -125,6 +139,8 @@ async function cmdGenerate(args: string[]) {
     character = await loadCharacter(values.character);
   }
 
+  requireSkill("fal-ai-media", FAL_MEDIA, "FAL_KEY");
+
   console.log(`Generating assets for ${storyboard.scenes.length} scenes...`);
   console.log(`  Image model: ${values.model}`);
   console.log(`  Video model: ${values["video-model"]}`);
@@ -218,6 +234,7 @@ async function cmdVoiceover(args: string[]) {
   console.log(`  Script: "${scriptText.slice(0, 80)}..."`);
 
   if (values.engine === "elevenlabs") {
+    requireSkill("elevenlabs-skill", ELEVENLABS, "ELEVENLABS_API_KEY");
     try {
       const result = run(
         `bun "${ELEVENLABS}" speak "${scriptText.replace(/"/g, '\\"')}" --voice ${values.voice} --output "${outputPath}"`
